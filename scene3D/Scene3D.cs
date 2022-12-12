@@ -2,6 +2,7 @@
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Single;
 using scene_3d.model;
+using scene_3d.utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace scene_3d
     internal class Scene3D
     {
         public List<model.Mesh> Meshes { get; set; }
+        private Utils utils;
         public Scene3D()
         {
             Meshes = new List<model.Mesh>();
+            utils = new Utils();
         }
 
         internal void AddObj(string fileName, Point position)
@@ -49,34 +52,22 @@ namespace scene_3d
             double angle = Math.PI / 12;
             double xFactor = random.NextDouble();
             double xAngle = angle * xFactor;
-            var rotationMatrixX = DenseMatrix.OfRowArrays(new float[][] {
-                new float[] {1, 0, 0 },
-                new float[] {0, (float)Math.Cos(xAngle), -(float)Math.Sin(xAngle) },
-                new float[] {0, (float)Math.Sin(xAngle), (float)Math.Cos(xAngle) }
-            });
             double yFactor = random.NextDouble();
             double yAngle = angle * yFactor;
-            var rotationMatrixY = DenseMatrix.OfRowArrays(new float[][] {
-                new float[] { (float)Math.Cos(yAngle), 0, (float)Math.Sin(yAngle) },
-                new float[] {0, 1, 0 },
-                new float[] { -(float)Math.Sin(yAngle), 0, (float)Math.Cos(yAngle) }
-            });
             double zFactor = random.NextDouble();
             double zAngle = angle * zFactor;
-            var rotationMatrixZ = DenseMatrix.OfRowArrays(new float[][] {
-                new float[] { (float)Math.Cos(zAngle), -(float)Math.Sin(zAngle), 0 },
-                new float[] { (float)Math.Sin(zAngle), (float)Math.Cos(zAngle), 0 },
-                new float[] {0, 0, 1 }
-            });
+            var rotationMatrix = 
+                utils.RotationMatrixX(xAngle)
+                * utils.RotationMatrixY(yAngle)
+                * utils.RotationMatrixZ(zAngle);
+
             foreach (model.Mesh mesh in Meshes)
             {
                 foreach (Polygon polygon in mesh.Polygons)
                 {
                     for(int i=0; i< polygon.Vertices.Count; i++)
                     {
-                        polygon.Vertices[i] = polygon.Vertices[i] * rotationMatrixX;
-                        polygon.Vertices[i] = polygon.Vertices[i] * rotationMatrixY;
-                        polygon.Vertices[i] = polygon.Vertices[i] * rotationMatrixZ;
+                        polygon.Vertices[i] = polygon.Vertices[i] * rotationMatrix;
                     }
                 }
             }

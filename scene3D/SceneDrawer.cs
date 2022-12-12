@@ -6,10 +6,10 @@ namespace scene_3d
 {
     internal class SceneDrawer
     {        
-        private Utilities utilities;
+        private Utils utilities;
         public SceneDrawer()
         {
-            utilities = new Utilities();
+            utilities = new Utils();
         }
 
         public void drawScene(Scene3D scene, Bitmap bitmap)
