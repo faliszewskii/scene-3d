@@ -8,22 +8,25 @@ namespace scene_3d.utilities
 
         public DenseMatrix RotationMatrixX(double angle) =>
            DenseMatrix.OfRowArrays(new float[][] {
-                new float[] {1, 0, 0 },
-                new float[] {0, (float)Math.Cos(angle), -(float)Math.Sin(angle) },
-                new float[] {0, (float)Math.Sin(angle), (float)Math.Cos(angle) }
+                new float[] {1, 0, 0, 0 },
+                new float[] {0, (float)Math.Cos(angle), -(float)Math.Sin(angle), 0 },
+                new float[] {0, (float)Math.Sin(angle), (float)Math.Cos(angle), 0 },
+                new float[] {0, 0, 0, 1 }
             });
         public DenseMatrix RotationMatrixY(double angle) =>
            DenseMatrix.OfRowArrays(new float[][] {
-                new float[] { (float)Math.Cos(angle), 0, (float)Math.Sin(angle) },
-                new float[] {0, 1, 0 },
-                new float[] { -(float)Math.Sin(angle), 0, (float)Math.Cos(angle) }
+                new float[] { (float)Math.Cos(angle), 0, (float)Math.Sin(angle), 0 },
+                new float[] {0, 1, 0, 0 },
+                new float[] { -(float)Math.Sin(angle), 0, (float)Math.Cos(angle), 0 },
+                new float[] {0, 0, 0, 1 }
             });
 
         public DenseMatrix RotationMatrixZ(double angle) =>
             DenseMatrix.OfRowArrays(new float[][] {
-                new float[] { (float) Math.Cos(angle), -(float) Math.Sin(angle), 0 },
-                new float[] { (float) Math.Sin(angle), (float) Math.Cos(angle), 0 },
-                new float[] { 0, 0, 1 }
+                new float[] { (float) Math.Cos(angle), -(float) Math.Sin(angle), 0, 0 },
+                new float[] { (float) Math.Sin(angle), (float) Math.Cos(angle), 0, 0 },
+                new float[] { 0, 0, 1, 0 },
+                new float[] {0, 0, 0, 1 }
             });
     }
 }

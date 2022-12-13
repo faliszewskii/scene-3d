@@ -47,5 +47,10 @@ namespace scene_3d
             sceneDrawer.drawScene(scene, canvas);
             pictureBox.Refresh();
         }
+
+        private void fovTrackBar_Scroll(object sender, EventArgs e)
+        {
+            sceneDrawer.Fov = fovTrackBar.Value;
+        }
     }
 }

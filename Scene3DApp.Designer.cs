@@ -35,8 +35,11 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.fovTrackBar = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fovTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -45,7 +48,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(815, 24);
+            this.menuStrip.Size = new System.Drawing.Size(990, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -82,11 +85,34 @@
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // fovTrackBar
+            // 
+            this.fovTrackBar.Location = new System.Drawing.Point(809, 47);
+            this.fovTrackBar.Maximum = 360;
+            this.fovTrackBar.Minimum = 1;
+            this.fovTrackBar.Name = "fovTrackBar";
+            this.fovTrackBar.Size = new System.Drawing.Size(169, 45);
+            this.fovTrackBar.TabIndex = 2;
+            this.fovTrackBar.Value = 120;
+            this.fovTrackBar.Scroll += new System.EventHandler(this.fovTrackBar_Scroll);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(879, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 17);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "FOV";
+            // 
             // Scene3DApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(815, 660);
+            this.ClientSize = new System.Drawing.Size(990, 660);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.fovTrackBar);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -95,6 +121,7 @@
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fovTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +135,7 @@
         private PictureBox pictureBox;
         private OpenFileDialog openFileDialog;
         private System.Windows.Forms.Timer timer;
+        private TrackBar fovTrackBar;
+        private Label label1;
     }
 }
