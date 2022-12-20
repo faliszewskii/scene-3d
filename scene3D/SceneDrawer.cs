@@ -39,9 +39,9 @@ namespace scene_3d
 
                             var viewMatrix = DenseMatrix.OfRowArrays(new float[][]
                             {
-                                new float[] { 0, 1, 0, -0.5f},
-                                new float[] { 0, 0, 1, -0.5f},
-                                new float[] { 1, 0, 0, -2f},
+                                new float[] { -0.351123442f, 0.936329178f, 0, -0.468164589f},
+                                new float[] { -0.397002777f, -0.148876041f, 0.905662586f, 0.074438021f},
+                                new float[] { 0.847998304f, 0.317999364f, 0.423999152f, -4.875990248f},
                                 new float[] { 0, 0, 0, 1}
                             });
 
@@ -65,13 +65,23 @@ namespace scene_3d
                             var transP2 = DenseVector.OfArray(new float[] { polygon.Vertices[utilities.WrapI(i + 1, polygon.Vertices.Count)][0], polygon.Vertices[utilities.WrapI(i + 1, polygon.Vertices.Count)][1], polygon.Vertices[utilities.WrapI(i + 1, polygon.Vertices.Count)][2], 1 });
                             transP2 = projectionMatrix * viewMatrix * mesh.rotation * transP2;
 
-                            PointF p1 = new PointF(300 + scale* transP1[0] / transP1[3], 300 + scale * transP1[1] / transP1[3]);
-                            PointF p2 = new PointF(300 + scale * transP2[0] / transP2[3], 300 + scale * transP2[1] / transP2[3]);
+                            PointF p1 = transformToBitmap(bitmap, transP1[0] / transP1[3], transP1[1] / transP1[3]);
+                            PointF p2 = transformToBitmap(bitmap, transP2[0] / transP2[3], transP2[1] / transP2[3]);
                             g.DrawLine(pen, p1, p2);
                         }
                     }
                 }
             }
+        }
+
+        private PointF transformToBitmap(Bitmap b, float v1, float v2)
+        {
+            int midX = b.Width / 2;
+            int midY = b.Height / 2;
+            return new PointF(
+                (v1+1) * midX,
+                (v2+1) * midY
+                );
         }
     }
 }

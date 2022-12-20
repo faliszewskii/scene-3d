@@ -56,14 +56,17 @@ namespace scene_3d
             Random random = new Random();
             double angle = Math.PI / 12;
 
-            foreach (model.Mesh mesh in Meshes)
+            //foreach (model.Mesh mesh in Meshes)
+            for(int i =0; i< Meshes.Count; i++)
             {
-                double xFactor = random.NextDouble()/ 30;
-                mesh.angles[0] += (float)xFactor;
-                double yFactor = random.NextDouble()/30;
-                mesh.angles[1] += (float)yFactor;
-                double zFactor = random.NextDouble()/30;
-                mesh.angles[2] +=  (float)zFactor;
+                model.Mesh mesh = Meshes[i];
+
+                double xFactor = 0.05;//random.NextDouble()/ 30;
+                mesh.angles[0] = i%1==0 ? mesh.angles[0] + (float)xFactor: 0;
+                double yFactor = 0.05;//random.NextDouble()/30;
+                mesh.angles[1] = i % 2 == 0 ? mesh.angles[1] + (float)yFactor : 0;
+                double zFactor = 0.05;//random.NextDouble()/30;
+                mesh.angles[2] = i % 3 == 0 ? mesh.angles[2] + (float)zFactor : 0;
                 var rotationMatrix =
                     utils.RotationMatrixX(mesh.angles[0])
                     * utils.RotationMatrixY(mesh.angles[1])
