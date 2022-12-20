@@ -12,7 +12,7 @@ namespace scene_3d
             canvas = new Bitmap(pictureBox.Width, pictureBox.Height);
             pictureBox.Image = canvas;
             scene = new Scene3D();
-            sceneDrawer = new SceneDrawer();
+            sceneDrawer = new SceneDrawer(canvas);
             timer.Enabled = true;
         }
 
