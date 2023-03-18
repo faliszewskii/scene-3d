@@ -15,9 +15,6 @@ namespace scene_3d
     {
         public List<model.Mesh> Meshes { get; set; }
         private Utils utils;
-        //private DenseVector cameraPosition;
-        //private DenseVector cameraTarget;
-        //private DenseVector upVector = DenseVector.OfArray(new float[] { 0, 0, 1 });
 
         public Scene3D()
         {
@@ -28,7 +25,6 @@ namespace scene_3d
         internal void AddObj(string fileName, Point position)
         {
             Scene scene = new AssimpContext().ImportFile(fileName);
-            //float scale = 100;
 
             var polygons = scene.Meshes.SelectMany(mesh =>
                 mesh.Faces.Select(face =>
@@ -56,16 +52,15 @@ namespace scene_3d
             Random random = new Random();
             double angle = Math.PI / 12;
 
-            //foreach (model.Mesh mesh in Meshes)
             for(int i =0; i< Meshes.Count; i++)
             {
                 model.Mesh mesh = Meshes[i];
 
-                double xFactor = 0.05;//random.NextDouble()/ 30;
+                double xFactor = 0.05;
                 mesh.angles[0] = i%1==0 ? mesh.angles[0] + (float)xFactor: 0;
-                double yFactor = 0.05;//random.NextDouble()/30;
+                double yFactor = 0.05;
                 mesh.angles[1] = i % 2 == 0 ? mesh.angles[1] + (float)yFactor : 0;
-                double zFactor = 0.05;//random.NextDouble()/30;
+                double zFactor = 0.05;
                 mesh.angles[2] = i % 3 == 0 ? mesh.angles[2] + (float)zFactor : 0;
                 var rotationMatrix =
                     utils.RotationMatrixX(mesh.angles[0])
@@ -76,19 +71,7 @@ namespace scene_3d
                 mesh.rotation[0, 3] = mesh.baseMatrix[0, 3];
                 mesh.rotation[1, 3] = mesh.baseMatrix[1, 3];
                 mesh.rotation[2, 3] = mesh.baseMatrix[2, 3];
-            }
-            /*foreach (model.Mesh mesh in Meshes)
-            {
-                foreach (Polygon polygon in mesh.Polygons)
-                {
-                    for(int i=0; i< polygon.Vertices.Count; i++)
-                    {
-                        var vector4 = DenseVector.OfArray( new float[] { polygon.Vertices[i][0], polygon.Vertices[i][1], polygon.Vertices[i][2], 1 });
-                        var result = vector4 * rotationMatrix;
-                        polygon.Vertices[i] = DenseVector.OfArray(new float[] { result[0] / result[3], result[1] / result[3], result[2] / result[3] });
-                    }
-                }
-            }*/
+            }           
         }
     }
 }

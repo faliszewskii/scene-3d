@@ -34,10 +34,6 @@ namespace scene_3d
                 new float[] { 0, 0, 1, -0.5f},
                 new float[] { 1, 0, 0, -3},
                 new float[] { 0, 0, 0, 1}
-                //new float[] { -0.351123442f, 0.936329178f, 0, -0.468164589f},
-                //new float[] { -0.397002777f, -0.148876041f, 0.905662586f, 0.074438021f},
-                //new float[] { 0.847998304f, 0.317999364f, 0.423999152f, -4.875990248f},
-                //new float[] { 0, 0, 0, 1}
             });
 
             float n = 1f;
@@ -69,7 +65,6 @@ namespace scene_3d
                         var transVertices = new List<DenseVector>();
                         var transNormals = new List<DenseVector>();
                         for(int i= 0; i < polygon.Vertices.Count; i++)
-                        //foreach (DenseVector vector in polygon.Vertices)
                         {
                             var vector = polygon.Vertices[i];
                             var normal = polygon.Normals[i];
@@ -87,7 +82,7 @@ namespace scene_3d
                                 transN1[1] / transN1[3],
                                 transN1[2] / transN1[3] }));
                         }
-                        Fill(transVertices, transNormals, bitmap, Color.FromArgb((30+k * 50) % 255, (70 + k * 50) % 255, (200+ k * 50) % 255)); 
+                        Fill(transVertices, transNormals, bitmap, Color.FromArgb(((30+k + 50) * 50) % 255, ((70 + k) * 50+50) % 255, ((200+ k) * 50 + 50) % 255)); 
                     }
                 }
             }
@@ -118,7 +113,6 @@ namespace scene_3d
             if (polygon.Count < 3) return;
             var vertices = polygon;
 
-            //var normals = polygon.Normals;
             var vertexNormalMap = polygon.Zip(normals, (v, n) => new { v, n })
                 .ToDictionary(x => x.v, x => x.n);
 
@@ -170,9 +164,6 @@ namespace scene_3d
                         if (VectorInBound(bitmap, (int)(j), (int)(yCurrent)))
                         {
                             var color = DeriveColorInTriangle(polygon, new Point(j, yCurrent), colors);
-                            //var col = Color.MediumAquamarine;/*UseNormalInterpolation ?
-/*                                DeriveNormalAndColorInTriangle(polygon, vertexNormalMap, vertices, new Vector2D(j, yCurrent), theSun, camera) :
-                                DeriveColorInTriangle(vertices, new Vector2D(j, yCurrent), colors);*/
                             drawPixel(polygon, new Point(j, yCurrent), color);
                             
                         }
@@ -203,7 +194,6 @@ namespace scene_3d
 
         private void drawPixel(List<DenseVector> polygon, Point p, Color col)
         {
-            //var col = Color.MediumAquamarine;
             var weights = CalculateWeights(polygon, p);
             var interpolatedPoint = VectorMean(polygon, weights);
             float z = interpolatedPoint[2];
@@ -257,9 +247,9 @@ namespace scene_3d
             Vector3D iO;
             iO = new Vector3D(ObjectColor.R / 255f, ObjectColor.G / 255f, ObjectColor.B / 255f);
 
-            float Ks = 0f;
+            float Ks = 1f;
             float Kd = 1f;
-            float M = 1;
+            float M = 4;
             DenseVector n= normalNormal;
             var v = normalCamera;
             var l = normalSun;
